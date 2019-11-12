@@ -191,8 +191,8 @@ function _nvm_use
 
     if test -s "$nvm_config/version"
         read -l last <"$nvm_config/version"
-        if set -l i (contains -i -- "$nvm_config/$last/bin" $fish_user_paths)
-            set -e fish_user_paths[$i]
+        if set -l i (contains -i -- "$nvm_config/$last/bin" $PATH)
+            set -e PATH[$i]
         end
     end
 
@@ -202,8 +202,8 @@ function _nvm_use
 
     echo $ver >$nvm_config/version
 
-    if not contains -- "$nvm_config/$ver/bin" $fish_user_paths
-        set -U fish_user_paths "$nvm_config/$ver/bin" $fish_user_paths
+    if not contains -- "$nvm_config/$ver/bin" $PATH
+        set -gx PATH "$nvm_config/$ver/bin" $PATH
     end
 end
 
